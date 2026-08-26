@@ -13,20 +13,31 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.x"
 
-      - name: Publish self-contained Windows executable
-        run: dotnet publish RavageLauncher.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishTrimmed=false -o publish
+      - name: Build .NET Framework 4.8 launcher
+        run: dotnet build RavageLauncher.csproj -c Release -o publish
+
+      - name: Remove debug symbols
+        shell: pwsh
+        run: Remove-Item "publish/RavageLauncher.pdb" -ErrorAction SilentlyContinue
+
+      - name: Show launcher size
+        shell: pwsh
+        run: |
+          $file = Get-Item "publish/RavageLauncher.exe"
+          Write-Host "RavageLauncher.exe: $($file.Length) bytes"
 
       - name: Upload launcher artifact
         uses: actions/upload-artifact@v4
         with:
-          name: RavageLauncher-win-x64
+          name: RavageLauncher-net48
           path: publish/RavageLauncher.exe
