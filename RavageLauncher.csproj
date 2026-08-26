@@ -9,6 +9,7 @@
     <AssemblyName>RavageLauncher</AssemblyName>
     <RootNamespace>RavageLauncher</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>ravage.ico</ApplicationIcon>
     <Version>0.3.0</Version>
     <FileVersion>0.3.0.0</FileVersion>
   </PropertyGroup>
