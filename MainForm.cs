@@ -49,7 +49,7 @@ internal sealed class MainForm : Form
     {
         var title = new Label
         {
-            Text = "RAVAGE LAUNCHER",
+            Text = "RAVAGE PVE /* ™ LAUNCHER",
             Font = new Font("Segoe UI Semibold", 23f, FontStyle.Bold),
             AutoSize = true,
             ForeColor = Color.White,
@@ -58,7 +58,7 @@ internal sealed class MainForm : Form
 
         var subtitle = new Label
         {
-            Text = "Fresh mods in. SCUM out. ~mods erased afterward.",
+            Text = "No noise, no BS.",
             AutoSize = true,
             ForeColor = Color.Silver,
             Location = new Point(31, 66)
@@ -197,7 +197,7 @@ internal sealed class MainForm : Form
         _lastRoot = _scumRoot.Text.Trim();
 
         Log("Launcher started.");
-        Log($"Mod source: {ModArchiveUrl}");
+        Log("Modpack source ready.");
     }
 
     private async void MainForm_Shown(object? sender, EventArgs e)
@@ -415,7 +415,7 @@ internal sealed class MainForm : Form
             bool cleaned = await DeleteDirectoryWithRetriesAsync(mods);
             if (cleaned)
             {
-                Log("~mods deleted. SCUM installation returned to clean state.");
+                Log("SCUM installation returned to clean state.");
                 SetStatus("Ready. ~mods removed.");
             }
             else
