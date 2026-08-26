@@ -110,7 +110,7 @@ internal sealed class MainForm : Form
         _detectButton.Click += DetectButton_Click;
         Controls.Add(_detectButton);
 
-        _playButton.Text = "PLAY RAVAGE";
+        _playButton.Text = "PLAY";
         _playButton.Font = new Font("Segoe UI Semibold", 15f, FontStyle.Bold);
         _playButton.SetBounds(585, top + 19, 285, 50);
         _playButton.BackColor = Color.FromArgb(47, 105, 166);
@@ -375,7 +375,7 @@ internal sealed class MainForm : Form
             NormalizeNestedModsFolder(mods);
             if (!Directory.EnumerateFiles(mods, "*.pak", SearchOption.AllDirectories).Any())
                 throw new InvalidDataException("No .pak files were found after extracting mods.zip.");
-            Log("Mod archive extracted into ~mods.");
+            Log("Mod archive extracted.");
 
             try { File.Delete(zipPath); } catch { /* temp cleanup is non-critical */ }
 
@@ -415,7 +415,7 @@ internal sealed class MainForm : Form
             if (cleaned)
             {
                 Log("SCUM installation returned to clean state.");
-                SetStatus("Ready. ~mods removed.");
+                SetStatus("Ready.");
             }
             else
             {
