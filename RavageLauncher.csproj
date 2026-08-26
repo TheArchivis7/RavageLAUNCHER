@@ -5,6 +5,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
     <AssemblyName>RavageLauncher</AssemblyName>
     <RootNamespace>RavageLauncher</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
