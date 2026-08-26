@@ -109,7 +109,7 @@ internal sealed class MainForm : Form
         _detectButton.Click += DetectButton_Click;
         Controls.Add(_detectButton);
 
-        _playButton.Text = "PLAY RAVAGE";
+        _playButton.Text = "PLAY";
         _playButton.Font = new Font("Segoe UI Semibold", 15f, FontStyle.Bold);
         _playButton.SetBounds(585, top + 19, 285, 50);
         _playButton.BackColor = Color.FromArgb(47, 105, 166);
