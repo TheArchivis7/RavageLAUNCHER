@@ -1,4 +1,6 @@
-using System.Text.Json;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace RavageLauncher;
 
@@ -18,7 +20,26 @@ internal sealed class LauncherSettings
                 return new LauncherSettings();
 
             string json = File.ReadAllText(SettingsPath);
-            return JsonSerializer.Deserialize<LauncherSettings>(json) ?? new LauncherSettings();
+            var serializer = new DataContractJsonSerializer(typeof(StoredSettings));
+
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+            var stored = serializer.ReadObject(stream) as StoredSettings;
+            if (stored is null)
+                return new LauncherSettings();
+
+            var settings = new LauncherSettings();
+
+            if (!string.IsNullOrWhiteSpace(stored.ScumRoot))
+                settings.ScumRoot = stored.ScumRoot;
+            if (!string.IsNullOrWhiteSpace(stored.ModsFolder))
+                settings.ModsFolder = stored.ModsFolder;
+            if (!string.IsNullOrWhiteSpace(stored.ExecutablePath))
+                settings.ExecutablePath = stored.ExecutablePath;
+            if (!string.IsNullOrWhiteSpace(stored.GraphicsApi))
+                settings.GraphicsApi = stored.GraphicsApi;
+
+            settings.AdditionalArguments = stored.AdditionalArguments ?? string.Empty;
+            return settings;
         }
         catch
         {
@@ -29,14 +50,45 @@ internal sealed class LauncherSettings
     public void Save()
     {
         Directory.CreateDirectory(Path.GetDirectoryName(SettingsPath)!);
-        string json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-        File.WriteAllText(SettingsPath, json);
+
+        var stored = new StoredSettings
+        {
+            ScumRoot = ScumRoot,
+            ModsFolder = ModsFolder,
+            ExecutablePath = ExecutablePath,
+            GraphicsApi = GraphicsApi,
+            AdditionalArguments = AdditionalArguments
+        };
+
+        var serializer = new DataContractJsonSerializer(typeof(StoredSettings));
+        using var stream = new MemoryStream();
+        serializer.WriteObject(stream, stored);
+        File.WriteAllText(SettingsPath, Encoding.UTF8.GetString(stream.ToArray()));
     }
 
     private static string SettingsPath => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "RavageLauncher",
         "settings.json");
+
+    [DataContract]
+    private sealed class StoredSettings
+    {
+        [DataMember]
+        public string? ScumRoot { get; set; }
+
+        [DataMember]
+        public string? ModsFolder { get; set; }
+
+        [DataMember]
+        public string? ExecutablePath { get; set; }
+
+        [DataMember]
+        public string? GraphicsApi { get; set; }
+
+        [DataMember]
+        public string? AdditionalArguments { get; set; }
+    }
 }
 
 internal static class Defaults

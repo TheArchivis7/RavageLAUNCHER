@@ -109,7 +109,7 @@ internal sealed class MainForm : Form
         _detectButton.Click += DetectButton_Click;
         Controls.Add(_detectButton);
 
-        _playButton.Text = "PLAY";
+        _playButton.Text = "PLAY RAVAGE";
         _playButton.Font = new Font("Segoe UI Semibold", 15f, FontStyle.Bold);
         _playButton.SetBounds(585, top + 19, 285, 50);
         _playButton.BackColor = Color.FromArgb(47, 105, 166);
@@ -197,7 +197,7 @@ internal sealed class MainForm : Form
         _lastRoot = _scumRoot.Text.Trim();
 
         Log("Launcher started.");
-        Log("Modpack source ready.");
+        Log("The Reverend's sick mind.");
     }
 
     private async void MainForm_Shown(object? sender, EventArgs e)
@@ -261,7 +261,6 @@ internal sealed class MainForm : Form
         using var dialog = new FolderBrowserDialog
         {
             Description = "Select the SCUM installation folder",
-            UseDescriptionForTitle = true,
             SelectedPath = Directory.Exists(_scumRoot.Text) ? _scumRoot.Text : string.Empty,
             ShowNewFolderButton = false
         };
@@ -278,7 +277,6 @@ internal sealed class MainForm : Form
         using var dialog = new FolderBrowserDialog
         {
             Description = "Select the ~mods folder location",
-            UseDescriptionForTitle = true,
             SelectedPath = Directory.Exists(_modsFolder.Text) ? _modsFolder.Text : string.Empty,
             ShowNewFolderButton = true
         };
@@ -367,7 +365,7 @@ internal sealed class MainForm : Form
             SetStatus("Downloading latest Ravage modpack...");
             _progress.Style = ProgressBarStyle.Continuous;
             _progress.Value = 0;
-            await DownloadFileAsync(ModArchiveUrl, zipPath, new Progress<int>(p => _progress.Value = Math.Clamp(p, 0, 100)));
+            await DownloadFileAsync(ModArchiveUrl, zipPath, new Progress<int>(p => _progress.Value = ClampProgress(p)));
             Log("Mod archive downloaded.");
 
             SetStatus("Extracting mods...");
@@ -452,15 +450,15 @@ internal sealed class MainForm : Form
         response.EnsureSuccessStatusCode();
 
         long? total = response.Content.Headers.ContentLength;
-        await using Stream input = await response.Content.ReadAsStreamAsync();
-        await using FileStream output = new(destination, FileMode.Create, FileAccess.Write, FileShare.None, 81920, true);
+        using Stream input = await response.Content.ReadAsStreamAsync();
+        using FileStream output = new(destination, FileMode.Create, FileAccess.Write, FileShare.None, 81920, true);
 
         byte[] buffer = new byte[81920];
         long received = 0;
         int read;
-        while ((read = await input.ReadAsync(buffer)) > 0)
+        while ((read = await input.ReadAsync(buffer, 0, buffer.Length)) > 0)
         {
-            await output.WriteAsync(buffer.AsMemory(0, read));
+            await output.WriteAsync(buffer, 0, read);
             received += read;
             if (total is > 0)
                 progress.Report((int)(received * 100L / total.Value));
@@ -493,7 +491,9 @@ internal sealed class MainForm : Form
             }
 
             Directory.CreateDirectory(Path.GetDirectoryName(target)!);
-            entry.ExtractToFile(target, overwrite: true);
+            if (File.Exists(target))
+                File.Delete(target);
+            entry.ExtractToFile(target);
         }
     }
 
@@ -516,7 +516,9 @@ internal sealed class MainForm : Form
         foreach (string file in Directory.GetFiles(nested))
         {
             string destination = Path.Combine(modsRoot, Path.GetFileName(file));
-            File.Move(file, destination, overwrite: true);
+            if (File.Exists(destination))
+                File.Delete(destination);
+            File.Move(file, destination);
         }
 
         Directory.Delete(nested, recursive: true);
@@ -620,6 +622,13 @@ internal sealed class MainForm : Form
         return string.IsNullOrWhiteSpace(additional)
             ? required
             : $"{required} {additional}";
+    }
+
+    private static int ClampProgress(int value)
+    {
+        if (value < 0) return 0;
+        if (value > 100) return 100;
+        return value;
     }
 
     private void SaveSettingsFromUi()
