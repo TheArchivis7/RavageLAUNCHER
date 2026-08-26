@@ -357,7 +357,7 @@ internal sealed class MainForm : Form
                 throw new IOException($"Could not remove existing mods folder: {mods}");
 
             Directory.CreateDirectory(mods);
-            Log($"Created: {mods}");
+            Log("Created temporary install folder...");
 
             Directory.CreateDirectory(tempDir);
             if (File.Exists(zipPath))
