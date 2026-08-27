@@ -36,7 +36,7 @@ internal sealed class AboutForm : Form
             Location = new Point(31, 68)
         };
 
-        var text = new Label
+        var text = new RichTextBox
         {
             Text =
                 "No noise. No BS. Just survival.\r\n\r\n" +
@@ -58,10 +58,14 @@ internal sealed class AboutForm : Form
                 "SCUM and other third-party trademarks remain the property of their respective owners. " +
                 "Ravage PVE/*™ is an independent community project and is not affiliated with, endorsed by, or sponsored by Gamepires.\r\n" +
                 "TL;DR: GAMEPIRES DIDN'T MAKE THIS, BLAME THE REVEREND.",
+            ReadOnly = true,
+            BorderStyle = BorderStyle.None,
+            BackColor = Color.FromArgb(22, 24, 28),
             ForeColor = Color.Gainsboro,
-            AutoSize = false,
             Location = new Point(31, 110),
-            Size = new Size(495, 250)
+            Size = new Size(495, 250),
+            ScrollBars = RichTextBoxScrollBars.Vertical,
+            TabStop = false
         };
 
         var closeButton = new Button
