@@ -68,6 +68,11 @@ internal sealed class MainForm : Form
 
         Controls.Add(title);
         Controls.Add(subtitle);
+        _aboutButton.Text = "ABOUT";
+        _aboutButton.SetBounds(790, 28, 80, 30);
+        StyleSecondaryButton(_aboutButton);
+        _aboutButton.Click += AboutButton_Click;
+        Controls.Add(_aboutButton);
 
         int top = 110;
         AddPathRow("SCUM installation", _scumRoot, _browseRootButton, "Browse", top);
