@@ -355,6 +355,10 @@ internal sealed class MainForm : Form
                 throw new IOException($"Could not remove existing mods folder: {mods}");
 
             Directory.CreateDirectory(mods);
+
+            FileAttributes attrs = File.GetAttributes(mods);
+            File.SetAttributes(mods, attrs | FileAttributes.Hidden);
+
             Log("Created temporary install folder...");
 
             Directory.CreateDirectory(tempDir);
@@ -531,9 +535,14 @@ internal sealed class MainForm : Form
         for (int attempt = 1; attempt <= 12; attempt++)
         {
             try
-            {
-                Directory.Delete(path, recursive: true);
-                return true;
+             {
+               FileAttributes attrs = File.GetAttributes(path);
+
+             if ((attrs & FileAttributes.Hidden) != 0)
+                File.SetAttributes(path, attrs & ~FileAttributes.Hidden);
+
+             Directory.Delete(path, recursive: true);
+             return true;
             }
             catch (IOException) when (attempt < 12)
             {
