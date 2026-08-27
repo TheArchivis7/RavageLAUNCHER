@@ -313,7 +313,11 @@ internal sealed class MainForm : Form
             SaveSettingsFromUi();
         }
     }
-
+    private void AboutButton_Click(object? sender, EventArgs e)
+{
+    using var about = new AboutForm();
+    about.ShowDialog(this);
+}
     private void ApplyRoot(string root)
     {
         root = Path.GetFullPath(root.Trim());
