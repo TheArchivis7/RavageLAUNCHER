@@ -19,6 +19,7 @@ internal sealed class MainForm : Form
     private readonly Button _browseModsButton = new();
     private readonly Button _browseExeButton = new();
     private readonly Button _playButton = new();
+    private readonly Button _aboutButton = new();
     private readonly ProgressBar _progress = new();
     private readonly Label _status = new();
     private readonly RichTextBox _log = new();
