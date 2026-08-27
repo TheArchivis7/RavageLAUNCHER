@@ -7,7 +7,7 @@ internal sealed class AboutForm : Form
 {
     public AboutForm()
     {
-        Text = "About Ravage Launcher";
+        Text = "About Ravage PVE/*™ Launcher";
         StartPosition = FormStartPosition.CenterParent;
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;
@@ -30,7 +30,7 @@ internal sealed class AboutForm : Form
 
         var subtitle = new Label
         {
-            Text = "Official Ravage Launcher  •  Version 0.3",
+            Text = "RAVAGE PVE/*™ Launcher  •  Version 0.3",
             ForeColor = Color.Silver,
             AutoSize = true,
             Location = new Point(31, 68)
@@ -45,16 +45,16 @@ internal sealed class AboutForm : Form
 
                 "LEGAL\r\n\r\n" +
                 "RAVAGE PVE and RAVAGE PVE/* are trademark applications.\r\n" +
-                "© 2026 Ravage PVE /*. All rights reserved.\r\n\r\n" +
+                "© 2026 Ravage PVE/*. All rights reserved.\r\n\r\n" +
 
-                "Original Ravage modifications, artwork, branding and associated materials " +
+                "Original Ravage PVE/* modifications, artwork, branding and associated materials " +
                 "may not be redistributed, repackaged or presented as another project without permission.\r\n\r\n" +
 
                 "Third-party modifications and assets remain the property of their respective creators " +
                 "and are used under their applicable permissions or licenses.\r\n\r\n" +
 
                 "SCUM and other third-party trademarks remain the property of their respective owners. " +
-                "Ravage PVE/* is an independent community project.",
+                "Ravage PVE/* is an independent community project and is not affiliated with, endorsed by, or sponsored by Gamepires.",
             ForeColor = Color.Gainsboro,
             AutoSize = false,
             Location = new Point(31, 110),
