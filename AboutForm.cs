@@ -41,12 +41,13 @@ internal sealed class AboutForm : Form
             Text =
                 "No noise. No BS. Just survival.\r\n\r\n" +
 
-                "This launcher provides the official mod package used by Ravage PVE/*™.\r\n" +
+                "This launcher provides the mod package used by Ravage PVE/*™.\r\n" +
                 "Mods are installed temporarily for each game session and removed afterward.\r\n" +
                 "TL;DR: MAGIC.\r\n\r\n" +
 
-                "© 2026 Ravage PVE/*. All rights reserved.\r\n\r\n" +
-
+                "LEGAL\r\n\r\n" +
+                "RAVAGE PVE and RAVAGE PVE/* are trademark applications.\r\n" +
+                "© 2026 Ravage PVE /*. All rights reserved.\r\n\r\n" +
                 "Original Ravage PVE/*™ modifications, artwork, branding and associated materials " +
                 "may not be redistributed, repackaged or presented as another project without permission.\r\n" +
                 "TL;DR: ASK CHATGPT OR YOUR LAWYER.\r\n\r\n" +
