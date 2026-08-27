@@ -71,8 +71,6 @@ internal sealed class MainForm : Form
         int top = 110;
         AddPathRow("SCUM installation", _scumRoot, _browseRootButton, "Browse", top);
         top += 76;
-        AddPathRow("Mods folder", _modsFolder, _browseModsButton, "Browse", top);
-        top += 76;
         AddPathRow("SCUM executable", _exePath, _browseExeButton, "Browse", top);
         top += 76;
 
