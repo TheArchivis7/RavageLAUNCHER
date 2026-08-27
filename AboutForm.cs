@@ -39,22 +39,25 @@ internal sealed class AboutForm : Form
         var text = new Label
         {
             Text =
-                "No noise. No BS. Just Ravage.\r\n\r\n" +
-                "This launcher provides the official mod package used by Ravage PVE /*.\r\n" +
-                "Mods are installed temporarily for each game session and removed afterward.\r\n\r\n" +
+                "No noise. No BS. Just survival.\r\n\r\n" +
 
-                "LEGAL\r\n\r\n" +
-                "RAVAGE PVE and RAVAGE PVE/* are trademark applications.\r\n" +
+                "This launcher provides the official mod package used by Ravage PVE/*™.\r\n" +
+                "Mods are installed temporarily for each game session and removed afterward.\r\n" +
+                "TL;DR: MAGIC.\r\n\r\n" +
+
                 "© 2026 Ravage PVE/*. All rights reserved.\r\n\r\n" +
 
-                "Original Ravage PVE/* modifications, artwork, branding and associated materials " +
-                "may not be redistributed, repackaged or presented as another project without permission.\r\n\r\n" +
+                "Original Ravage PVE/*™ modifications, artwork, branding and associated materials " +
+                "may not be redistributed, repackaged or presented as another project without permission.\r\n" +
+                "TL;DR: ASK CHATGPT OR YOUR LAWYER.\r\n\r\n" +
 
                 "Third-party modifications and assets remain the property of their respective creators " +
-                "and are used under their applicable permissions or licenses.\r\n\r\n" +
+                "and are used under their applicable permissions or licenses.\r\n" +
+                "TL;DR: DON'T BE A DICK; CREDIT WHERE CREDIT IS DUE.\r\n\r\n" +
 
                 "SCUM and other third-party trademarks remain the property of their respective owners. " +
-                "Ravage PVE/* is an independent community project and is not affiliated with, endorsed by, or sponsored by Gamepires.",
+                "Ravage PVE/*™ is an independent community project and is not affiliated with, endorsed by, or sponsored by Gamepires.\r\n" +
+                "TL;DR: GAMEPIRES DIDN'T MAKE THIS, BLAME THE REVEREND.",
             ForeColor = Color.Gainsboro,
             AutoSize = false,
             Location = new Point(31, 110),
